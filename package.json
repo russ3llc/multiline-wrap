@@ -1,0 +1,275 @@
+{
+  "name": "multiline-wrap",
+  "displayName": "multiline Wrap",
+  "description": "Wrap each line of multiline selections.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.78.0"
+  },
+  "categories": [
+    "Formatters",
+    "Keymaps",
+    "Other"
+  ],
+  "keywords": [
+    "wrap",
+    "selection",
+    "console",
+    "quote",
+    "symbol",
+    "multiline"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "wrapSelection",
+        "title": "Wrap selection"
+      },
+      {
+        "command": "wrapSelection.doubleQuotes",
+        "title": "Wrap selection with double quotes"
+      },
+      {
+        "command": "wrapSelection.singleQuote",
+        "title": "Wrap selection with single quotes"
+      },
+      {
+        "command": "wrapSelection.backtick",
+        "title": "Wrap selection with backticks"
+      },
+      {
+        "command": "wrapSelection.frenchQuote",
+        "title": "Wrap selection with French quotes"
+      },
+      {
+        "command": "wrapSelection.squareBracket",
+        "title": "Wrap selection with square brackets"
+      },
+      {
+        "command": "wrapSelection.parentheses",
+        "title": "Wrap selection with parentheses"
+      },
+      {
+        "command": "wrapSelection.braces",
+        "title": "Wrap selection with braces"
+      },
+      {
+        "command": "wrapSelection.single",
+        "title": "Wrap selection"
+      },
+      {
+        "command": "wrapSelection.doubleQuotes.single",
+        "title": "Wrap selection with double quotes"
+      },
+      {
+        "command": "wrapSelection.singleQuote.single",
+        "title": "Wrap selection with single quotes"
+      },
+      {
+        "command": "wrapSelection.backtick.single",
+        "title": "Wrap selection with backticks"
+      },
+      {
+        "command": "wrapSelection.frenchQuote.single",
+        "title": "Wrap selection with French quotes"
+      },
+      {
+        "command": "wrapSelection.squareBracket.single",
+        "title": "Wrap selection with square brackets"
+      },
+      {
+        "command": "wrapSelection.parentheses.single",
+        "title": "Wrap selection with parentheses"
+      },
+      {
+        "command": "wrapSelection.braces.single",
+        "title": "Wrap selection with braces"
+      },
+      {
+        "command": "wrapSelection.doubleQuotes.multi",
+        "title": "Wrap selection with double quotes"
+      },
+      {
+        "command": "wrapSelection.singleQuote.multi",
+        "title": "Wrap selection with single quotes"
+      },
+      {
+        "command": "wrapSelection.backtick.multi",
+        "title": "Wrap selection with backtick quotes"
+      },
+      {
+        "command": "wrapSelection.frenchQuote.multi",
+        "title": "Wrap selection with French quotes"
+      },
+      {
+        "command": "wrapSelection.squareBracket.multi",
+        "title": "Wrap selection with square brackets"
+      },
+      {
+        "command": "wrapSelection.parentheses.multi",
+        "title": "Wrap selection with parentheses"
+      },
+      {
+        "command": "wrapSelection.braces.multi",
+        "title": "Wrap selection with braces"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "when": "editorTextFocus",
+          "command": "wrapSelection",
+          "group": "wrapSelection"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "type": "object",
+        "title": "Defaults",
+        "order": 0,
+        "properties": {
+          "multilineWrap.defaults.multiline": {
+            "type": "boolean",
+            "default": true,
+            "description": "Wrap each line as it's own seperate selection"
+          },
+          "multilineWrap.defaults.pattern": {
+            "type": "string",
+            "default": "\"",
+            "description": "Characters to wrap with"
+          },
+          "multilineWrap.defaults.trailingComma.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Include trailing comma"
+          },
+          "multilineWrap.defaults.trailingComma.lastLine": {
+            "type": "boolean",
+            "default": true,
+            "description": "Insert comma on last line of selection"
+          }
+        }
+      },
+      {
+        "type": "object",
+        "title": "Key Bindings",
+        "order": 1,
+        "properties": {
+          "multilineWrap.keybindings.default": {
+            "type": "boolean",
+            "default": true,
+            "order": 1,
+            "description": "ctrl/cmd+shift+'"
+          },
+          "multilineWrap.keybindings.doubleQuote": {
+            "type": "boolean",
+            "default": true,
+            "order": 2
+          },
+          "multilineWrap.keybindings.singleQuote": {
+            "type": "boolean",
+            "default": true,
+            "order": 3
+          },
+          "multilineWrap.keybindings.backtick": {
+            "type": "boolean",
+            "default": true,
+            "order": 4
+          },
+          "multilineWrap.keybindings.squareBracket": {
+            "type": "boolean",
+            "default": true,
+            "order": 5
+          },
+          "multilineWrap.keybindings.parentheses": {
+            "type": "boolean",
+            "default": true,
+            "order": 6
+          },
+          "multilineWrap.keybindings.braces": {
+            "type": "boolean",
+            "default": true,
+            "order": 7
+          }
+        }
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "wrapSelection",
+        "key": "shift+cmd+'",
+        "windows": "shift+ctrl+'",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.default"
+      },
+      {
+        "key": "shift+'",
+        "command": "wrapSelection.doubleQuotes",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.doubleQuote"
+      },
+      {
+        "key": "'",
+        "command": "wrapSelection.singleQuote",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.singleQuote"
+      },
+      {
+        "key": "`",
+        "command": "wrapSelection.backtick",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.backtick"
+      },
+      {
+        "key": "[",
+        "command": "wrapSelection.squareBracket",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.squareBracket"
+      },
+      {
+        "key": "]",
+        "command": "wrapSelection.squareBracket",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.squareBracket"
+      },
+      {
+        "key": "shift+9",
+        "command": "wrapSelection.parentheses",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.parentheses"
+      },
+      {
+        "key": "shift+0",
+        "command": "wrapSelection.parentheses",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.parentheses"
+      },
+      {
+        "key": "shift+[",
+        "command": "wrapSelection.braces",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.braces"
+      },
+      {
+        "key": "shift+]",
+        "command": "wrapSelection.braces",
+        "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.braces"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.78.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.39.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "typescript": "^5.0.4"
+  }
+}
