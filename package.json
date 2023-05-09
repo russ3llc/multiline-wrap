@@ -1,7 +1,7 @@
 {
   "name": "multiline-wrap",
   "displayName": "multiline Wrap",
-  "description": "Wrap each line of multiline selections.",
+  "description": "Wrap each line πof multiline selections.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"

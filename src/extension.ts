@@ -5,12 +5,16 @@ interface WrapOptions {
   editor: TextEditor;
   symbol?: string;
   single?: boolean;
+  trailingComma?: boolean,
+  lastLineComma?: boolean
 }
 
 const wrapSelection = ({
   editor,
   symbol = null,
   single = undefined,
+  trailingComma = null,
+  lastLineComma = null
 }: WrapOptions): void => {
 
   const { document, selections } = editor;
@@ -20,7 +24,7 @@ const wrapSelection = ({
       if (!selection.isEmpty) {
         const text = document.getText(selection);
 
-        b.replace(selection, wrap(text, symbol, single));
+        b.replace(selection, wrap({text: text, pattern: symbol, single: single }));
       }
     });
   });
