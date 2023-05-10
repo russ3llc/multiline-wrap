@@ -4,7 +4,7 @@ import { wrap } from "./wrap";
 interface WrapOptions {
   editor: TextEditor;
   symbol?: string;
-  single?: boolean;
+  multi?: boolean;
   trailingComma?: boolean,
   lastLineComma?: boolean
 }
@@ -12,7 +12,7 @@ interface WrapOptions {
 const wrapSelection = ({
   editor,
   symbol = null,
-  single = undefined,
+  multi = null,
   trailingComma = null,
   lastLineComma = null
 }: WrapOptions): void => {
@@ -24,7 +24,7 @@ const wrapSelection = ({
       if (!selection.isEmpty) {
         const text = document.getText(selection);
 
-        b.replace(selection, wrap({text: text, pattern: symbol, single: single }));
+        b.replace(selection, wrap({text: text, pattern: symbol, multi: multi }));
       }
     });
   });
@@ -93,7 +93,7 @@ export function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, single: true });
+      wrapSelection({ editor: editor, multi: true });
     })
   );
 
@@ -101,49 +101,49 @@ export function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.doubleQuotes.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: '"', single: true });
+      wrapSelection({ editor: editor, symbol: '"', multi: true });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.singleQuote.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "'", single: true });
+      wrapSelection({ editor: editor, symbol: "'", multi: true });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.backtick.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "`", single: true });
+      wrapSelection({ editor: editor, symbol: "`", multi: true });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.frenchQuote.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "«", single: true });
+      wrapSelection({ editor: editor, symbol: "«", multi: true });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.squareBracket.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "[", single: true });
+      wrapSelection({ editor: editor, symbol: "[", multi: true });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.parentheses.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "(", single: true });
+      wrapSelection({ editor: editor, symbol: "(", multi: true });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.braces.single", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "{", single: true });
+      wrapSelection({ editor: editor, symbol: "{", multi: true });
     })
   );
 
@@ -151,7 +151,7 @@ export function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.double", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, single: false });
+      wrapSelection({ editor: editor, multi: false });
     })
   );
 
@@ -159,49 +159,49 @@ export function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.doubleQuotes.multi", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: '"', single: false });
+      wrapSelection({ editor: editor, symbol: '"', multi: false });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.singleQuote.multi", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "'", single: false });
+      wrapSelection({ editor: editor, symbol: "'", multi: false });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.backtick.multi", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "`", single: false });
+      wrapSelection({ editor: editor, symbol: "`", multi: false });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.frenchQuote.multi", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "«", single: false });
+      wrapSelection({ editor: editor, symbol: "«", multi: false });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.squareBracket.multi", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "[", single: false });
+      wrapSelection({ editor: editor, symbol: "[", multi: false });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.parentheses.multi", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "(", single: false });
+      wrapSelection({ editor: editor, symbol: "(", multi: false });
     })
   );
 
   context.subscriptions.push(
     commands.registerCommand("wrapSelection.braces.multi", () => {
       const { activeTextEditor: editor } = window;
-      wrapSelection({ editor: editor, symbol: "{", single: false });
+      wrapSelection({ editor: editor, symbol: "{", multi: false });
     })
   );
 }

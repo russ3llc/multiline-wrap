@@ -3,7 +3,6 @@ import * as vscode from "vscode";
 import { wrap } from "../../wrap";
 
 function wrapTests(useComma: boolean) {
-  
   describe("should correctly wrap text", () => {
     it("should wrap with one character", () => {
       const wrappedText = wrap({
@@ -118,45 +117,45 @@ function wrapTests(useComma: boolean) {
     });
   });
 
-    // Coming soon... maybe
-    // describe("should wrap with more complex pattern", () => {
-    //   it("should wrap with <!--", () => {
-    //     assert.equal(wrap("test", "<!--"), "<!--test--!>");
-    //     assert.equal(wrap("test", "--!>"), "<!--test--!>");
-    //   });
+  // Coming soon... maybe
+  // describe("should wrap with more complex pattern", () => {
+  //   it("should wrap with <!--", () => {
+  //     assert.equal(wrap("test", "<!--"), "<!--test--!>");
+  //     assert.equal(wrap("test", "--!>"), "<!--test--!>");
+  //   });
 
-    //   it("should wrap with {{}}", () => {
-    //     assert.equal(wrap("test", "{{"), "{{test}}");
-    //     assert.equal(wrap("test", "}}"), "{{test}}");
-    //   });
+  //   it("should wrap with {{}}", () => {
+  //     assert.equal(wrap("test", "{{"), "{{test}}");
+  //     assert.equal(wrap("test", "}}"), "{{test}}");
+  //   });
 
-    //   it("should wrap with {{{ }}}", () => {
-    //     assert.equal(wrap("test", "{{{"), "{{{test}}}");
-    //     assert.equal(wrap("test", "}}}"), "{{{test}}}");
-    //   });
+  //   it("should wrap with {{{ }}}", () => {
+  //     assert.equal(wrap("test", "{{{"), "{{{test}}}");
+  //     assert.equal(wrap("test", "}}}"), "{{{test}}}");
+  //   });
 
-    //   it("should wrap with <%%>", () => {
-    //     assert.equal(wrap("test", "<%"), "<%test%>");
-    //     assert.equal(wrap("test", "%>"), "<%test%>");
-    //   });
+  //   it("should wrap with <%%>", () => {
+  //     assert.equal(wrap("test", "<%"), "<%test%>");
+  //     assert.equal(wrap("test", "%>"), "<%test%>");
+  //   });
 
-    //   it("should wrap with {%%}", () => {
-    //     assert.equal(wrap("test", "{%"), "{%test%}");
-    //     assert.equal(wrap("test", "%}"), "{%test%}");
-    //   });
-    // });
+  //   it("should wrap with {%%}", () => {
+  //     assert.equal(wrap("test", "{%"), "{%test%}");
+  //     assert.equal(wrap("test", "%}"), "{%test%}");
+  //   });
+  // });
 
-    // describe("should correctly wrap with custom pattern", () => {
-    //   it("wrap with log pattern", () => {
-    //     const wrappedText = wrap("test", "log");
-    //     assert.equal(wrappedText, "console.log(`test`, test)");
-    //   });
+  // describe("should correctly wrap with custom pattern", () => {
+  //   it("wrap with log pattern", () => {
+  //     const wrappedText = wrap("test", "log");
+  //     assert.equal(wrappedText, "console.log(`test`, test)");
+  //   });
 
-    //   it("wrap with promise pattern", () => {
-    //     const wrappedText = wrap("test", "promise");
-    //     assert.equal(wrappedText, "new Promise((yeah, nah) => yeah(test))");
-    //   });
-    // });
+  //   it("wrap with promise pattern", () => {
+  //     const wrappedText = wrap("test", "promise");
+  //     assert.equal(wrappedText, "new Promise((yeah, nah) => yeah(test))");
+  //   });
+  // });
   // });
 }
 
@@ -167,5 +166,61 @@ describe("wrap", () => {
 
   describe("should wrap correctly with trailing commas", () => {
     wrapTests(true);
+  });
+
+  describe("should wrap correctly for single/multiline options", () => {
+    const inputText = ["test1", "test2"].join("\n");
+
+    it("should wrap correctly for single line option", () => {
+      const wrappedText = wrap({
+        text: inputText,
+        pattern: ",",
+        multi: false,
+        trailingComma: false,
+      });
+      const expectedText = [",test1", "test2,"].join("\n");
+      assert.equal(wrappedText, expectedText);
+    });
+
+    it("should wrap correctly for multi line option", () => {
+      const wrappedText = wrap({
+        text: inputText,
+        pattern: ",",
+        multi: true,
+        trailingComma: false,
+      });
+      const expectedText = [",test1,", ",test2,"].join("\n");
+      assert.equal(wrappedText, expectedText);
+    });
+  });
+
+  describe("should wrap correctly for last line trailing comma options", ()=> {
+    it("should wrap correctly without last line comma", () => {
+      const inputText = ["test1", "test2"].join("\n");
+
+      it("should wrap correctly for last comma option", () => {
+        const wrappedText = wrap({
+          text: inputText,
+          pattern: ",",
+          multi: false,
+          trailingComma: true,
+          lastLineComma: true
+        });
+        const expectedText = [",test1", "test2,"].join("\n");
+        assert.equal(wrappedText, expectedText);
+      });
+
+      it("should wrap correctly for no last comma option", () => {
+        const wrappedText = wrap({
+          text: inputText,
+          pattern: ",",
+          multi: false,
+          trailingComma: true,
+          lastLineComma: false,
+        });
+        const expectedText = [",test1", "test2"].join("\n");
+        assert.equal(wrappedText, expectedText);
+      });
+    });
   });
 });
