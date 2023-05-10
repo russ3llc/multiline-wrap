@@ -3,6 +3,7 @@
   "displayName": "multiline Wrap",
   "description": "Wrap each line πof multiline selections.",
   "version": "1.0.0",
+  "publisher": "RussellCarpenella",
   "engines": {
     "vscode": "^1.78.0"
   },
@@ -23,7 +24,7 @@
     "type": "git",
     "url": "https://github.com/russ3llc/multiline-wrap"
   },
-  "icon": "static/icon.ping",
+  "icon": "static/icon.png",
   "theme": {
     "icon": "static/icon.png",
     "galleryBanner": {
@@ -32,7 +33,7 @@
     }
   },
   "activationEvents": [],
-  "main": "./out/extension.js",
+  "main": "/out/extension",
   "contributes": {
     "commands": [
       {
