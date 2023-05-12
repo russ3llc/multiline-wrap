@@ -1,6 +1,6 @@
 {
   "name": "multiline-wrap",
-  "displayName": "multiline Wrap",
+  "displayName": "Multiline Wrap",
   "description": "Wrap each line πof multiline selections.",
   "version": "1.0.0",
   "publisher": "RussellCarpenella",
@@ -154,6 +154,20 @@
             "default": "\"",
             "description": "Characters to wrap with"
           },
+ "multilineWrap.defaults.ignoreWhitespace.leading: {
+            "type": "boolean",
+            "default": true,
+            "description": "Dont include leading whitespace as part of selection"
+          }
+        }
+      },
+ "multilineWrap.defaults.ignoreWhitespace.trailing: {
+            "type": "boolean",
+            "default": true,
+            "description": "Dont include trailing whitespace as part of selection"
+          }
+        }
+      },
           "multilineWrap.defaults.trailingComma.enabled": {
             "type": "boolean",
             "default": true,

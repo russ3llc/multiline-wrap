@@ -20,18 +20,25 @@ interface WrapOptions {
   lastLineComma?: boolean;
 }
 
+// Passing all of the options probably isnt the best design,
+// but I don't know how to get unit tests working otherwise
 const wrap = ({
   text,
   pattern,
   multi = null,
   trailingComma = null,
   lastLineComma = null,
+  trailingWs = null,
+  leadingSs = null
 }: WrapOptions): string => {
   const config = workspace.getConfiguration("multilineWrap");
 
   trailingComma = trailingComma ?? config.get("defaults.trailingComma.enabled");
   lastLineComma =
     lastLineComma ?? config.get("defaults.trailingComma.lastLine");
+  trailingWs = trailingWs ?? config.get("defaults.trailingWs.enabled");
+  leadingWs = leadingWs ?? config.get("defaults.leadingWs.enabled");
+  multi = multi ?? config.get("defaults.multiline");
 
   const defaultPattern: string = config.get("defaults.pattern");
   pattern = pattern ?? defaultPattern.replace(/`/g, "\\`");
@@ -45,8 +52,14 @@ const wrap = ({
     patternLeft = dc.left;
     patternRight = dc.right;
   }
-
-  multi = multi ?? config.get("defaults.multiline");
+  
+  if (leadingWs) {
+    text = text.trimStart()
+  }
+  
+  if (trailingWs) {
+    text = text.trimEnd()
+  }
 
   if (!multi) {
     const comma = trailingComma ? "," : "";

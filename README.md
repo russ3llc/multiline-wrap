@@ -33,7 +33,7 @@ I created this extension for my own use case, which involves copying (sometimes 
 
 ## Acknowledgments
 
-This extension is very much inspired and based on Konstantin Gorodinskiy's extension, "[Wrap Selection](https://marketplace.visualstudio.com/items?itemName=konstantin.wrapSelection)". If you like this extension, go give their extension a start on [GitHub](https://github.com/gko/wrap).
+This extension is very much inspired and based on Konstantin Gorodinskiy's extension, "[Wrap Selection](https://marketplace.visualstudio.com/items?itemName=konstantin.wrapSelection)". If you like this extension, go give their extension a star on [GitHub](https://github.com/gko/wrap).
 
 Also, thank you to the AI chatbot who helped me complete the unit test.
 
