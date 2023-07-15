@@ -18,6 +18,8 @@ interface WrapOptions {
   multi?: boolean;
   trailingComma?: boolean;
   lastLineComma?: boolean;
+  ignoreLeadingWs?: boolean;
+  ignoreTrailingWs?: boolean;
 }
 
 // Passing all of the options probably isnt the best design,
@@ -28,16 +30,17 @@ const wrap = ({
   multi = null,
   trailingComma = null,
   lastLineComma = null,
-  trailingWs = null,
-  leadingSs = null
+  ignoreLeadingWs = null,
+  ignoreTrailingWs = null,
 }: WrapOptions): string => {
   const config = workspace.getConfiguration("multilineWrap");
 
+  ignoreLeadingWs =
+    ignoreLeadingWs ?? config.get("defaults.ignoreWhitespace.leading");
+  ignoreTrailingWs = ignoreTrailingWs ?? config.get("defaults.ignoreWhitespace.trailing");
   trailingComma = trailingComma ?? config.get("defaults.trailingComma.enabled");
   lastLineComma =
     lastLineComma ?? config.get("defaults.trailingComma.lastLine");
-  trailingWs = trailingWs ?? config.get("defaults.trailingWs.enabled");
-  leadingWs = leadingWs ?? config.get("defaults.leadingWs.enabled");
   multi = multi ?? config.get("defaults.multiline");
 
   const defaultPattern: string = config.get("defaults.pattern");
@@ -52,13 +55,16 @@ const wrap = ({
     patternLeft = dc.left;
     patternRight = dc.right;
   }
-  
-  if (leadingWs) {
-    text = text.trimStart()
-  }
-  
-  if (trailingWs) {
-    text = text.trimEnd()
+
+  if (ignoreLeadingWs || ignoreTrailingWs) {
+    let parts = text.split("\n");
+    if (ignoreLeadingWs) {
+      parts = parts.map(line => line.trimStart());
+    }
+    if (ignoreTrailingWs) {
+      parts = parts.map(line => line.trimEnd());
+    }
+    text = parts.join("\n");
   }
 
   if (!multi) {

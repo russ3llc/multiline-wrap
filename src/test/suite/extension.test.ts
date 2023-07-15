@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import * as vscode from "vscode";
+// import * as vscode from "vscode";
 import { wrap } from "../../wrap";
 
 function wrapTests(useComma: boolean) {
@@ -168,6 +168,64 @@ describe("wrap", () => {
     wrapTests(true);
   });
 
+  describe("should wrap correctly for ignore whitespace options", () => {
+    describe("should wrap correctly for ignore leading whitespace option", () => {
+      it("should wrap correctly for ignore leading whitespace enabled", () => {
+        const wrappedText = wrap({
+          text: " test ",
+          pattern: "\"",
+          multi: false,
+          trailingComma: true,
+          ignoreLeadingWs: true,
+          ignoreTrailingWs: true,
+        });
+        const expectedText = '"test",';
+        assert.equal(wrappedText, expectedText);
+      });
+
+      it("should wrap correctly for ignore leading whitespace disabled", () => {
+        const wrappedText = wrap({
+          text: " test ",
+          pattern: '"',
+          multi: false,
+          trailingComma: true,
+          ignoreLeadingWs: false,
+          ignoreTrailingWs: true,
+        });
+        const expectedText = '" test",';
+        assert.equal(wrappedText, expectedText);
+      });
+    });
+
+    describe("should wrap correctly for ignore trailing whitespace option", () => {
+      it("should wrap correctly for ignore trailing whitespace enabled", () => {
+        const wrappedText = wrap({
+          text: " test ",
+          pattern: "\"",
+          multi: false,
+          trailingComma: true,
+          ignoreLeadingWs: true,
+          ignoreTrailingWs: true,
+        });
+        const expectedText = '"test",';
+        assert.equal(wrappedText, expectedText);
+      });
+
+      it("should wrap correctly for ignore trailing whitespace disabled", () => {
+        const wrappedText = wrap({
+          text: " test ",
+          pattern: "\"",
+          multi: false,
+          trailingComma: true,
+          ignoreLeadingWs: true,
+          ignoreTrailingWs: false,
+        });
+        const expectedText = '"test ",';
+        assert.equal(wrappedText, expectedText);
+      });
+    });
+  });
+
   describe("should wrap correctly for single/multiline options", () => {
     const inputText = ["test1", "test2"].join("\n");
 
@@ -194,7 +252,7 @@ describe("wrap", () => {
     });
   });
 
-  describe("should wrap correctly for last line trailing comma options", ()=> {
+  describe("should wrap correctly for last line trailing comma options", () => {
     it("should wrap correctly without last line comma", () => {
       const inputText = ["test1", "test2"].join("\n");
 
@@ -204,7 +262,7 @@ describe("wrap", () => {
           pattern: ",",
           multi: false,
           trailingComma: true,
-          lastLineComma: true
+          lastLineComma: true,
         });
         const expectedText = [",test1", "test2,"].join("\n");
         assert.equal(wrappedText, expectedText);
