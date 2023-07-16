@@ -5,16 +5,16 @@ interface WrapOptions {
   editor: TextEditor;
   symbol?: string;
   multi?: boolean;
-  trailingComma?: boolean,
-  lastLineComma?: boolean
+  trailingChars?: boolean,
+  lastLineChars?: boolean
 }
 
 const wrapSelection = ({
   editor,
   symbol = null,
   multi = null,
-  trailingComma = null,
-  lastLineComma = null
+  // trailingChars = null,
+  // lastLineChars = null
 }: WrapOptions): void => {
 
   const { document, selections } = editor;
