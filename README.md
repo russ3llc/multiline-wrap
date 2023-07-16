@@ -19,7 +19,7 @@ Also in extension options:
 - Enable/disable keybindings
 
 ## Planned future features
-- Option to ignore leading whitespace.
+- ~~Option to ignore leading whitespace.~~ 
 - More advanced patterns.
 - Custom patterns.
 - Prove P = NP.
