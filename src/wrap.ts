@@ -1,7 +1,6 @@
 import { workspace } from "vscode";
 
-// TODO - fix camel case in extension settings
-// TODO - Add ignoring leading whitespace
+// TODO - fix camel case in extension settings - update, I don't remember why this is a problem
 // TODO - Backfill wrap features - e.g. complex patterns, user patterns
 
 const directionalCharacters = [
@@ -12,14 +11,23 @@ const directionalCharacters = [
   { left: "<", right: ">" },
 ];
 
+interface TrailingCharsOptions {
+  enabled?: boolean;
+  lastLine?: boolean;
+  characters?: string;
+}
+
+interface IgnoreWhitespaceOptions {
+  leading?: boolean;
+  trailing?: boolean;
+}
+
 interface WrapOptions {
   text: string;
   pattern: string;
   multi?: boolean;
-  trailingComma?: boolean;
-  lastLineComma?: boolean;
-  ignoreLeadingWs?: boolean;
-  ignoreTrailingWs?: boolean;
+  trailingChars?: TrailingCharsOptions;
+  ignoreWs?: IgnoreWhitespaceOptions;
 }
 
 // Passing all of the options probably isnt the best design,
@@ -28,19 +36,21 @@ const wrap = ({
   text,
   pattern,
   multi = null,
-  trailingComma = null,
-  lastLineComma = null,
-  ignoreLeadingWs = null,
-  ignoreTrailingWs = null,
+  trailingChars = null,
+  ignoreWs = null,
 }: WrapOptions): string => {
   const config = workspace.getConfiguration("multilineWrap");
 
-  ignoreLeadingWs =
-    ignoreLeadingWs ?? config.get("defaults.ignoreWhitespace.leading");
-  ignoreTrailingWs = ignoreTrailingWs ?? config.get("defaults.ignoreWhitespace.trailing");
-  trailingComma = trailingComma ?? config.get("defaults.trailingComma.enabled");
-  lastLineComma =
-    lastLineComma ?? config.get("defaults.trailingComma.lastLine");
+  const ignoreLeadingWs =
+    ignoreWs?.leading ?? config.get("defaults.ignoreWhitespace.leading");
+  const ignoreTrailingWs =
+    ignoreWs?.trailing ?? config.get("defaults.ignoreWhitespace.trailing");
+  const trailingCharsEnabled =
+    trailingChars?.enabled ?? config.get("defaults.trailingChars.enabled");
+  const trailingCharsLastLine =
+    trailingChars?.lastLine ?? config.get("defaults.trailingChars.lastLine");
+  const trailingCharacters =
+    trailingChars?.characters ?? config.get("defaults.trailingChars.characters");
   multi = multi ?? config.get("defaults.multiline");
 
   const defaultPattern: string = config.get("defaults.pattern");
@@ -68,20 +78,23 @@ const wrap = ({
   }
 
   if (!multi) {
-    const comma = trailingComma ? "," : "";
-    return `${patternLeft}${text}${patternRight}${comma}`;
+    if (trailingCharsEnabled) {
+      return `${patternLeft}${text}${patternRight}${trailingCharacters}`;
+    } else {
+      return `${patternLeft}${text}${patternRight}`;
+    }
   }
 
   const expr = new RegExp("(.+)", "g");
   let replaceExpr: string;
 
-  replaceExpr = trailingComma
-    ? `${patternLeft}$1${patternRight},`
+  replaceExpr = trailingCharsEnabled
+    ? `${patternLeft}$1${patternRight}${trailingCharacters}`
     : `${patternLeft}$1${patternRight}`;
-
   let output = text.replace(expr, replaceExpr);
-  if (!lastLineComma && trailingComma) {
-    output = output.substring(0, output.length - 1);
+
+  if (trailingCharsEnabled && !trailingCharsLastLine) {
+    output = output.substring(0, output.length - trailingCharacters.length);
   }
   return output;
 };

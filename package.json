@@ -164,15 +164,21 @@
             "default": true,
             "description": "Dont include trailing whitespace as part of selection"
           },
-          "multilineWrap.defaults.trailingComma.enabled": {
+          "multilineWrap.defaults.trailingChars.enabled": {
             "type": "boolean",
             "default": true,
-            "description": "Include trailing comma"
+            "description": "Insert trailing characters on each line"
           },
-          "multilineWrap.defaults.trailingComma.lastLine": {
+          "multilineWrap.defaults.trailingChars.lastLine": {
             "type": "boolean",
             "default": true,
-            "description": "Insert comma on last line of selection"
+            "description": "Insert trailing characters on the last line"
+          },
+          "multilineWrap.defaults.trailingChars.characters": {
+            "type": "string",
+            "default": ",",
+            "description": "The trailing character to insert, if enabled",
+            "minLength": 1
           }
         }
       },
@@ -194,27 +200,27 @@
           },
           "multilineWrap.keybindings.singleQuote": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "order": 3
           },
           "multilineWrap.keybindings.backtick": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "order": 4
           },
           "multilineWrap.keybindings.squareBracket": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "order": 5
           },
           "multilineWrap.keybindings.parentheses": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "order": 6
           },
           "multilineWrap.keybindings.braces": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "order": 7
           }
         }
@@ -223,8 +229,8 @@
     "keybindings": [
       {
         "command": "wrapSelection",
-        "key": "shift+cmd+'",
-        "windows": "shift+ctrl+'",
+        "key": "ctrl+shift+'",
+        "mac": "cmd+shift+'",
         "when": "editorTextFocus && editorHasSelection && config.multilineWrap.keybindings.default"
       },
       {
