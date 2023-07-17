@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-07-17
+
+## Changed
+
+- Options for ignoring whitespace are now more general whitespace options, including Ignore, Delete, and Include.
+
+## Fixed
+
+- Typo in package.json description
+
 ## [1.2.0] - 2023-07-16
 
 ### Changed
@@ -26,7 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Everything!
 
-[unreleased]: https://github.com/russ3llc/multiline-wrap/compare/v1.2.0...main
+[unreleased]: https://github.com/russ3llc/multiline-wrap/compare/v1.3.0...main
+[1.3.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/russ3llc/multiline-wrap/releases/tag/v1.0.0
