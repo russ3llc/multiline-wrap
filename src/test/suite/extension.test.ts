@@ -199,7 +199,7 @@ describe("should correctly wrap based on configuration", () => {
     });
   });
 
-  describe("should wrap based on ignore whitespace options", () => {
+  describe("should wrap based on whitespace options", () => {
     describe("should wrap based on leading whitespace options", () => {
       it("should wrap and ignore leading whitespace", () => {
         const wrappedText = wrap({
@@ -207,17 +207,17 @@ describe("should correctly wrap based on configuration", () => {
           pattern: '"',
           multi: false,
           trailingChars: {
-            enabled: false
+            enabled: false,
           },
-          ignoreWs: {
-            leading: true,
-            trailing: true
-          }
+          whitespace: {
+            leading: "ignore",
+            trailing: "include",
+          },
         });
-        const expectedText = '"test"';
+        const expectedText = ' "test "';
         assert.equal(wrappedText, expectedText);
       });
-      it("should wrap and not ignore leading whitespace", () => {
+      it("should wrap and delete leading whitespace", () => {
         const wrappedText = wrap({
           text: " test ",
           pattern: '"',
@@ -225,17 +225,33 @@ describe("should correctly wrap based on configuration", () => {
           trailingChars: {
             enabled: false,
           },
-          ignoreWs: {
-            leading: false,
-            trailing: true,
+          whitespace: {
+            leading: "delete",
+            trailing: "include",
           },
         });
-        const expectedText = '" test"';
+        const expectedText = '"test "';
+        assert.equal(wrappedText, expectedText);
+      });
+      it("should wrap and include leading whitespace", () => {
+        const wrappedText = wrap({
+          text: " test ",
+          pattern: '"',
+          multi: false,
+          trailingChars: {
+            enabled: false,
+          },
+          whitespace: {
+            leading: "include",
+            trailing: "include",
+          },
+        });
+        const expectedText = '" test "';
         assert.equal(wrappedText, expectedText);
       });
     });
 
-    describe("should wrap based on ignore trailing whitespace options", () => {
+    describe("should wrap based on trailing whitespace options", () => {
       it("should wrap and ignore trailing whitespace", () => {
         const wrappedText = wrap({
           text: " test ",
@@ -244,15 +260,15 @@ describe("should correctly wrap based on configuration", () => {
           trailingChars: {
             enabled: false,
           },
-          ignoreWs: {
-            leading: true,
-            trailing: true,
+          whitespace: {
+            leading: "include",
+            trailing: "ignore",
           },
         });
-        const expectedText = '"test"';
+        const expectedText = '" test" ';
         assert.equal(wrappedText, expectedText);
       });
-      it("should wrap and not ignore trailing whitespace", () => {
+      it("should wrap and delete trailing whitespace", () => {
         const wrappedText = wrap({
           text: " test ",
           pattern: '"',
@@ -260,12 +276,28 @@ describe("should correctly wrap based on configuration", () => {
           trailingChars: {
             enabled: false,
           },
-          ignoreWs: {
-            leading: true,
-            trailing: false,
+          whitespace: {
+            leading: "include",
+            trailing: "delete",
           },
         });
-        const expectedText = '"test "';
+        const expectedText = '" test"';
+        assert.equal(wrappedText, expectedText);
+      });
+      it("should wrap and include trailing whitespace", () => {
+        const wrappedText = wrap({
+          text: " test ",
+          pattern: '"',
+          multi: false,
+          trailingChars: {
+            enabled: false,
+          },
+          whitespace: {
+            leading: "include",
+            trailing: "include",
+          },
+        });
+        const expectedText = '" test "';
         assert.equal(wrappedText, expectedText);
       });
     });
