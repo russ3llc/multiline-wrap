@@ -46,10 +46,6 @@ const wrap = ({
     whitespace?.leading ?? config.get("defaults.whitespace.leading");
   const trailingWs =
     whitespace?.trailing ?? config.get("defaults.whitespace.trailing");
-  // const ignoreLeadingWs =
-  //   whitespace?.leading ?? config.get("defaults.ignoreWhitespace.leading");
-  // const ignoreTrailingWs =
-  //   whitespace?.trailing ?? config.get("defaults.ignoreWhitespace.trailing");
   const trailingCharsEnabled =
     trailingChars?.enabled ?? config.get("defaults.trailingChars.enabled");
   const trailingCharsLastLine =
