@@ -1,7 +1,7 @@
 {
   "name": "multiline-wrap",
   "displayName": "Multiline Wrap",
-  "description": "Wrap each line πof multiline selections.",
+  "description": "Wrap each line of multiline selections.",
   "version": "1.2.0",
   "publisher": "RussellCarpenella",
   "engines": {
@@ -154,15 +154,35 @@
             "default": "\"",
             "description": "Characters to wrap with"
           },
-          "multilineWrap.defaults.ignoreWhitespace.leading": {
-            "type": "boolean",
-            "default": true,
-            "description": "Dont include leading whitespace as part of selection"
+          "multilineWrap.defaults.whitespace.leading": {
+            "type": "string",
+            "default": "ignore",
+            "enum": [
+              "ignore",
+              "delete",
+              "include"
+            ],
+            "enumDescriptions": [
+              "Don't include whitespace in selection",
+              "Delete whitespace in selection",
+              "Include whitespace in selection"
+            ],
+            "description": "How leading whitespace should be treated"
           },
-          "multilineWrap.defaults.ignoreWhitespace.trailing": {
-            "type": "boolean",
-            "default": true,
-            "description": "Dont include trailing whitespace as part of selection"
+          "multilineWrap.defaults.whitespace.trailing": {
+            "type": "string",
+            "default": "ignore",
+            "enum": [
+              "ignore",
+              "delete",
+              "include"
+            ],
+            "enumDescriptions": [
+              "Don't include whitespace in selection",
+              "Delete whitespace in selection",
+              "Include whitespace in selection"
+            ],
+            "description": "How leading whitespace should be treated"
           },
           "multilineWrap.defaults.trailingChars.enabled": {
             "type": "boolean",
